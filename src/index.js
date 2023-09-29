@@ -23,7 +23,7 @@ const { breeds, catInfo, loader, error } = ref;
 toggle([error, breeds]);
 
 fetchBreeds()
-  .then(cat => {
+  .then(cat => {    
     toCreateOptionsMarkup(cat, breeds);
     toggle([loader, breeds]);
     
@@ -38,24 +38,28 @@ breeds.addEventListener('change', onBreedClick);
 function onBreedClick(e) {
   fetchCatByBreed(e.currentTarget.value)
     .then(catData => {
-    
-      const { id, url } = catData[0];      
+      const { id, url } = catData[0];
       catInfo.innerHTML = `<img src=${url} width='400px'>`;
 
-      toggle([catInfo, loader]);     
-      setTimeout(toggle, 1000, [catInfo, loader]);     
+      toggle([catInfo, loader]);
+      setTimeout(toggle, 1000, [catInfo, loader]);
 
-      fetchCatByID(id)
-        .then(({ breeds }) => {          
-          toCreateCatInfoMarkup(catInfo, breeds);          
-        })
-        .catch(onFetchError);
+      return id;
+    })
+    .then(id => {
+      return fetchCatByID(id)
+        .then(({ breeds }) => {
+          return breeds;
+        });
+    })
+    .then(breeds => {
+      toCreateCatInfoMarkup(catInfo, breeds);
     })
     .catch(onFetchError);  
 }
 
 function onFetchError() {
-  toggle([catInfo, loader]); 
+  toggle([catInfo, breeds]); 
   Notiflix.Notify.failure(
     'Oops! Something went wrong! Try reloading the page!'
   );
