@@ -1,15 +1,10 @@
-import axios from 'axios';
-axios.defaults.headers.common['x-api-key'] =
-  'live_2QNehEpaqEWbB7vA804GHTvS1cQ9PvLnOv152a8LH1dSxfgBkfeaifHsSc3DLBkN';
  
 import { fetchBreeds, fetchCatByBreed, fetchCatByID } from './cat-api.js';
 import { toCreateOptionsMarkup, toCreateCatInfoMarkup } from './markup.js';
 
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
-
 import Notiflix from 'notiflix';
-
 
 
 const ref = {
