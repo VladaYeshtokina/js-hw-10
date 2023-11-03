@@ -7,7 +7,7 @@ h2, p {
 }
 
 .breed-select {
-  width: 200px;
+  min-width: 200px;
 }
 
 .cat-info{  
